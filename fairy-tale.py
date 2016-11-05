@@ -13,12 +13,19 @@ level=1
 vertline = pygame.image.load("resources/images/vert-line.png")
 grass = pygame.image.load("resources/images/grass1.png")
 
-#Game Layout
-while 1:
+#Game Layout function
+def gameSetup():
     screen.fill((245,222,179))
-    screen.blit(puzzleArea, (0,0))
+    #puzzleArea.blit(screen, (0,0))
     screen.blit(vertline,(710,-55))
     
+
+#level 1
+    while True: 
+        for x in range(width/grass.get_width()+1):
+                for y in range(height/grass.get_height()+1):
+                    puzzleArea.blit(grass,(x*125,y*200))
+		gameSetup()
 # 7 - update the screen
     pygame.display.flip()
 # 8 - loop through the events
@@ -28,14 +35,5 @@ while 1:
             # if it is quit the game
             pygame.quit() 
             exit(0)
-
-
-#level 1
-    while level == 1: 
-        for x in range(width/grass.get_width()+1):
-                for y in range(height/grass.get_height()+1):
-                    puzzleArea.blit(grass,(x*125,y*200))
-
-
 
 
