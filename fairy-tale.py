@@ -10,7 +10,9 @@ keys = [False, False, False, False]
 playerpos=[100,100]
 level=2
 index = 0
-
+moves= [];
+moveImg=[];
+count = 0
 
 #images
 vertline = pygame.image.load("resources/images/vert-line.png")
@@ -23,21 +25,26 @@ right = "resources/images/right.png"
 
 #Game Layout Function
 def gameSetup(str):
-	pygame.display.set_caption(str)
-	screen.fill((245,222,179))
-	screen.blit(puzzleArea, (0,0))
-	screen.blit(vertline,(710,-55))
-	pygame.display.flip()
+		pygame.display.set_caption(str)
+		screen.fill((245,222,179))
+		screen.blit(puzzleArea, (0,0))
+		screen.blit(vertline,(710,-55))
+		pygame.display.flip()
+#Draw Moves Function
+def drawMoves():
+	global moveImg
+	for moves in moveImg
+		
 #Basic Game Mechanics
 def gamePlay():
 	global index 
-	moves= [];
-	moveImg=[]; 
+	global moves 
 	arrowPosy=[16, 66, 116, 166, 216, 266, 316, 366, 416, 466, 516, 566, 616, 666];
 	spaceBar=False
 	arrowBlitPosx= 750
-	while index <= 14:
+	while spaceBar == False and index <= 14:
 		print index
+		print spaceBar
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_UP:
@@ -65,9 +72,13 @@ def gamePlay():
 				
 		
 	else:
-		print moves
-		print moveImg
-	
+		global count
+		if count < 1:
+			print moves
+			print moveImg
+			print count
+			count += 1
+		
 #for move in moveImg:
 		#	arrowPic=[];
 		#	arrowPic.append(pygame.image.load(move))
@@ -80,20 +91,24 @@ def gamePlay():
 			
 
 #level 1
-if level == 1 and index <= 14: 
+if level == 1: 
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(grass,(x*125,y*200))
 	gameSetup("LEVEL 1")
-	gamePlay()
+	#gamePlay()
 
 #level 2
-elif level == 2 and index <= 14:
+elif level == 2:
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(shark,(x*125,y*200))
-	gameSetup("LEVEL 2")
-	gamePlay()
+	while count < 1:
+		gameSetup("LEVEL 2")
+		gamePlay()
+	else:
+		while True:
+			gameSetup("LEVEL 2")
 # 7 - update the screen
 	
 # 8 - loop through the events
