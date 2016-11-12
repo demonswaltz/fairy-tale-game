@@ -7,12 +7,12 @@ width, height = 1000,750
 screen=pygame.display.set_mode((width, height))
 puzzleArea=pygame.Surface((700, 500))
 keys = [False, False, False, False]
+arrowPosy=[16, 66, 116, 166, 216, 266, 316, 366, 416, 466, 516, 566, 616, 666];
 playerpos=[100,100]
 level=2
 index = 0
 moves= [];
 moveImg=[];
-imageLoad=[];
 count = 0
 
 #images
@@ -38,18 +38,23 @@ def drawMoves():
 	global moveImg
 	global moves
 	if len(moves) > 0:
-		imageLoad.append(screen.blit(pygame.image.load(moveImg[len(moveImg)-1]), (750, arrowPosy[len(moveImg)-1])))
-		for image in imageLoad:
-			image
+		#imageLoad.append(screen.blit(pygame.image.load(moveImg[len(moveImg)-1]), (750, arrowPosy[len(moveImg)-1])))
+		#for image in imageLoad:
+		#	image
+		#	pygame.display.flip()
+		for pos,image in zip(arrowPosy,moveImg):
+			screen.blit(pygame.image.load(image), (750, pos))
 			pygame.display.flip()
-		
+			
 #Basic Game Mechanics
 def gamePlay():
+	arrowPosy=[16, 66, 116, 166, 216, 266, 316, 366, 416, 466, 516, 566, 616, 666];
 	global index 
 	global moves
 	spaceBar=False
 	while spaceBar == False and index < 14:
 		print len(moveImg) 
+		drawMoves()
 		for event in pygame.event.get():
 			try:
 				if event.type == pygame.KEYDOWN:
@@ -75,6 +80,9 @@ def gamePlay():
 						moves.pop()
 						moveImg.pop()
 						index-= 1
+						for pos,image in zip(arrowPosy,moveImg):
+							screen.blit(pygame.image.load(image), (750, pos))
+							pygame.display.flip()
 					elif event.key == pygame.K_SPACE:
 						spaceBar = True
 			except IndexError:
@@ -87,7 +95,7 @@ def gamePlay():
 		
 	else:
 		global count
-		print moves
+		print moveImg
 		print index
 		print moveImg
 		count += 1
