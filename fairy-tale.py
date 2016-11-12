@@ -7,7 +7,7 @@ width, height = 1000,750
 screen=pygame.display.set_mode((width, height))
 puzzleArea=pygame.Surface((700, 500))
 keys = [False, False, False, False]
-arrowPosy=[16, 66, 116, 166, 216, 266, 316, 366, 416, 466, 516, 566, 616, 666];
+arrowPosy=[];
 playerpos=[100,100]
 level=2
 index = 0
@@ -25,61 +25,75 @@ left = "resources/images/left.png"
 right = "resources/images/right.png"
 
 #Game Layout Function
-def gameSetup(str):
-		pygame.display.set_caption(str)
+def gameSetup():
+		global level
+		str(level)
+		pygame.display.set_caption("LEVEL ")
 		screen.fill((245,222,179))
 		screen.blit(puzzleArea, (0,0))
 		screen.blit(vertline,(710,-55))
 		pygame.display.flip()
 #Draw Moves Function
 def drawMoves():
-	arrowPosy=[16, 66, 116, 166, 216, 266, 316, 366, 416, 466, 516, 566, 616, 666];
-	imageLoad=[]
+	global arrowPosy
 	global moveImg
 	global moves
+	imageLoad=[]
 	if len(moves) > 0:
-		#imageLoad.append(screen.blit(pygame.image.load(moveImg[len(moveImg)-1]), (750, arrowPosy[len(moveImg)-1])))
-		#for image in imageLoad:
-		#	image
-		#	pygame.display.flip()
 		for pos,image in zip(arrowPosy,moveImg):
+			pygame.time.wait(10)
 			screen.blit(pygame.image.load(image), (750, pos))
 			pygame.display.flip()
+	else:
+		gameSetup()
 			
 #Basic Game Mechanics
 def gamePlay():
-	arrowPosy=[16, 66, 116, 166, 216, 266, 316, 366, 416, 466, 516, 566, 616, 666];
+	global arrowPosy
 	global index 
 	global moves
+	posy=16
 	spaceBar=False
 	while spaceBar == False and index < 14:
-		print len(moveImg) 
+		print arrowPosy
+		print moveImg
 		drawMoves()
 		for event in pygame.event.get():
 			try:
 				if event.type == pygame.KEYDOWN:
-					gameSetup("Level")
+					gameSetup()
 					drawMoves()
 					if event.key == pygame.K_UP:
 						moves.append(pygame.K_UP)
 						moveImg.append(up)
+						arrowPosy.append(posy)
+						posy += 50
 						index += 1
 					elif event.key == pygame.K_DOWN:
 						moves.append(pygame.K_DOWN)
 						moveImg.append(down)
+						arrowPosy.append(posy)
+						posy += 50
 						index += 1
 					elif event.key == pygame.K_LEFT:
 						moves.append(pygame.K_LEFT)
 						moveImg.append(left)
+						arrowPosy.append(posy)
+						posy += 50
 						index += 1
 					elif event.key == pygame.K_RIGHT:
 						moves.append(pygame.K_RIGHT)
 						moveImg.append(right)
+						arrowPosy.append(posy)
+						posy += 50
 						index += 1
 					elif event.key == pygame.K_BACKSPACE:
 						moves.pop()
 						moveImg.pop()
+						arrowPosy.pop()
+						posy -=50
 						index-= 1
+						gameSetup()
 						for pos,image in zip(arrowPosy,moveImg):
 							screen.blit(pygame.image.load(image), (750, pos))
 							pygame.display.flip()
@@ -87,7 +101,7 @@ def gamePlay():
 						spaceBar = True
 			except IndexError:
 				index = 0
-				gameSetup("LEVEL")
+				gameSetup()
 				drawMoves()
 				gamePlay()
 		drawMoves()
@@ -117,18 +131,18 @@ if level == 1:
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(grass,(x*125,y*200))
 	while count < 1:
-		gameSetup("LEVEL 1")
+		gameSetup()
 		gamePlay()
 	else:
 		while True:
-			gameSetup("LEVEL 1")
+			gameSetup()
 #level 2
 elif level == 2:
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(shark,(x*125,y*200))
 	while count < 1:
-		gameSetup("LEVEL 2")
+		gameSetup()
 		gamePlay()
 		
 		
