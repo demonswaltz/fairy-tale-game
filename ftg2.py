@@ -1,20 +1,25 @@
 import pygame
 from pygame.locals import *
 
-#Supposedly Global Variables
 pygame.init()
 width, height = 1000,750
 screen=pygame.display.set_mode((width, height))
+#defined in Level*
 puzzleArea=pygame.Surface((700, 500))
-redRect= pygame.Surface
-keys = [False, False, False, False]
+#defined in Level*
+puzzleStuff=pygame.Surface((700,500))
+#puzzleStuff.set_colorkey((0,0,0))
+#defined in drawRed
+redArea=pygame.Surface((700,500))
+redArea.set_colorkey((0,0,0))
+#defined in instructions
+instructions= pygame.Surface((1000, 250))
 arrowPosy=[];
-level=1
-index = 0
 moves= [];
 moveImg=[];
-count = 0
 spaceBar=False
+level = 1
+count = 0
 posy=16
 lilRedSpot=[];
 
@@ -29,18 +34,16 @@ down = "resources/images/down.png"
 left = "resources/images/left.png"
 right = "resources/images/right.png"
 
-
-#Game Layout Function
 def gameSetup():
 		global level
 		lev_str = str(level)
 		pygame.display.set_caption("LEVEL "+ lev_str)
 		screen.fill((245,222,179))
-		screen.blit(puzzleArea, (0,0))
-		screen.blit (lilRed, (playerpos[0],playerpos[1]))
+		screen.blit(instructions, (0, 500))
+		#screen.blit(puzzleArea, (0,0))
 		screen.blit(vertline,(710,-55))
 		pygame.display.flip()
-#Draw Moves Function
+
 def drawMoves():
 	global arrowPosy
 	global moveImg
@@ -53,14 +56,13 @@ def drawMoves():
 			pygame.display.flip()
 	else:
 		gameSetup()
-			
-#Basic Input Mechanics
+
 def gamePlay():
 	global arrowPosy
-	global index 
 	global moves
 	global posy
 	global spaceBar
+	index = 0
 	while spaceBar == False and index < 14:
 		drawMoves()
 		for event in pygame.event.get():
@@ -110,32 +112,21 @@ def gamePlay():
 				drawMoves()
 				gamePlay()
 		drawMoves()
-		
-		
+			
 	else:
 		global count
 		print moveImg
 		print index
 		print moveImg
 		count += 1
-def drawRed():
-	global lilRedSpot
-	screen.blit(puzzleArea, (0,0))
-	screen.blit(lilRed, (playerpos[0], playerpos[1]))
-	lilRedSpot.pop()
-	lilRedSpot.pop()
-	pygame.display.flip()
-	pygame.time.wait(1000)		
 
-	
-		
-#Basic Game
 def gameRun():
 	global moves
 	global playerpos
-	global puzzleArea
 	global count
 	global lilRedSpot
+	lilRedSpot.append(playerpos[0])
+	lilRedSpot.append(playerpos[1])
 	for move in moves:
 		#up
 		if move == 273:
@@ -169,64 +160,43 @@ def gameRun():
 			lilRedSpot.append(playerpos[1])
 			drawRed()
 
+def drawRed():
+	global lilRedSpot
+	screen.blit(puzzleStuff, (0,0))
+	redArea.blit(lilRed, (playerpos[0], playerpos[1]))
+	screen.blit(redArea, (0,0))
+	lilRedSpot.pop()
+	lilRedSpot.pop()
+	pygame.display.flip()
+	pygame.time.wait(1000)	
 
-	
-	
-			
-
-#level 1
-while level == 1: 
+def levelOne():
+	global playerpos
 	playerpos = [100,5]
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(grass,(x*125,y*200))
-	puzzleArea.blit (path, (100, 50))
-	puzzleArea.blit (path, (100, 95))
-	puzzleArea.blit (path, (100, 140))
-	puzzleArea.blit (path, (100, 185))
-	puzzleArea.blit (path, (100, 230))
-	puzzleArea.blit (path, (100, 275))
-	screen.blit(lilRed, (playerpos[0],playerpos[1]))
+	puzzleStuff.blit (path, (100, 50))
+	puzzleStuff.blit (path, (100, 95))
+	puzzleStuff.blit (path, (100, 140))
+	puzzleStuff.blit (path, (100, 185))
+	puzzleStuff.blit (path, (100, 230))
+	puzzleStuff.blit (path, (100, 275))
+	
+def loadAll():
+	screen.blit(puzzleArea, (0,0))
+	screen.blit(puzzleStuff, (0,0))
+	screen.blit(redArea, (0,0))
 	pygame.display.flip()
+
+while level == 1: 
 	while count < 1:
-		
 		gameSetup()
+		levelOne()
+		gameRun()
 		gamePlay()
 	else:
 		while count < 2:
 			gameRun()
+			drawRed()
 			count += 1
-		
-				
-				
-			
-#level 2
-else:
-	while level == 2:
-		for x in range(width/grass.get_width()+1):
-			for y in range(height/grass.get_height()+1):
-				puzzleArea.blit(shark,(x*125,y*200))
-		while count < 1:
-			gameSetup()
-			gamePlay()
-			
-		
-		else:
-			while True:
-				gamePlay()
-	else:
-		while level == 3:
-			while count <1:
-				gameSetup()
-		
-# 7 - update the screen
-	
-# 8 - loop through the events
-for event in pygame.event.get():
-		# check if the event is the X button 
-	if event.type==pygame.QUIT:
-		# if it is quit the game
-		pygame.quit() 
-		exit(0)
-
-
