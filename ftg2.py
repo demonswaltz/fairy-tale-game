@@ -135,11 +135,10 @@ def gamePlay():
 				drawMoves()
 				gamePlay()
 		drawMoves()
-		
-		
 	else:
 		global count
 		count += 1
+		
 def drawRed():
 	global lilRedSpot
 	screen.blit(puzzleArea, (0,0))
@@ -148,10 +147,6 @@ def drawRed():
 	#lilRedSpot.pop()
 	pygame.display.flip()
 	pygame.time.wait(1000)
-	
-				
-
-	
 		
 #Basic Game
 def gameRun():
@@ -206,7 +201,7 @@ def gameRun():
 
 def levelOne():
 	global playerpos
-	playerpos = [100,5]
+	playerpos = [100,50]
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(grass,(x*125,y*200))
@@ -227,13 +222,13 @@ def levelOne():
 #level 1
 while level == 1: 
 	levelOne()
-	while count < 1:
+	while count == 0:
 		print pathTiles.sprites
 		gamePlay()
 	else:
-		while count < 2:
+		while count == 1:
 			gameRun()
-			count += 1
+			count = 0
 			level += 1
 		
 				
