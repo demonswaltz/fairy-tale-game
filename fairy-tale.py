@@ -1,6 +1,10 @@
 import pygame
 from pygame.locals import *
 
+#I got class
+
+
+
 #Supposedly Global Variables
 pygame.init()
 width, height = 1000,750
@@ -169,7 +173,8 @@ def gameRun():
 			lilRedSpot.append(playerpos[1])
 			drawRed()
 
-
+#def checkCollide
+	
 	
 	
 			
