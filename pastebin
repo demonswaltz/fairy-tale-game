@@ -1,0 +1,61 @@
+
+#Create Path elements and add to group
+
+path1 = Path()
+path2 = Path()
+path3 = Path()
+path4 = Path()
+path5 = Path()
+path6 = Path()
+path7 = Path()
+path8 = Path()
+path9 = Path()
+path10 = Path()
+path11 = Path()
+path12 = Path()
+
+path1.set_image(path)
+path2.set_image(path)
+path3.set_image(path)
+path4.set_image(path)
+path5.set_image(path)
+path6.set_image(path)
+path7.set_image(path)
+path8.set_image(path)
+path9.set_image(path)
+path10.set_image(path)
+path11.set_image(path)
+path12.set_image(path)
+
+pathTiles.add(path1, path2, path3, path4, path5, path6,path7, path8, path9, path10, path11, path12)
+stonePile= [path1, path2, path3, path4, path5, path6,path7, path8, path9, path10, path11, path12]
+
+#Creat Tree Elements and add to group
+
+tree1 = Tree()
+tree2 = Tree()
+tree3 = Tree()
+tree4 = Tree()
+tree5 = Tree()
+tree6 = Tree()
+tree7 = Tree()
+tree8 = Tree()
+tree9 = Tree()
+tree10 = Tree()
+tree11 = Tree()
+tree12 = Tree()
+
+tree1.set_image(treeimg1)
+tree2.set_image(treeimg1)
+tree3.set_image(treeimg1)
+tree4.set_image(treeimg1)
+tree5.set_image(treeimg2)
+tree6.set_image(treeimg2)
+tree7.set_image(treeimg2)
+tree8.set_image(treeimg2)
+tree9.set_image(treeimg5)
+tree10.set_image(treeimg5)
+tree11.set_image(treeimg5
+
+pathTiles.add(tree1, tree2, tree3, tree4, tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12)
+stonePile= [tree1, tree2, tree3, tree4, tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12]
