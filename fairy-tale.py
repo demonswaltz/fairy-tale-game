@@ -267,19 +267,22 @@ def levelOne():
 	print moves
 	spaceBar = False
 	count = 0
-	playerpos = [100,5]
+	playerpos = [55,50]
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(grass,(x*125,y*200))
 	path1 = Path()
 	path2 = Path()
+	path3 = Path()
 	path1.set_image(path)
 	path2.set_image(path)
+	path3.set_image(path)
 	redStone.set_image(redpathimg)
 	path1.set_pos (100, 50)
-	path2.set_pos (100, 95)
-	redStone.set_pos(100, 140)
-	pathTiles.add(path1, path2)
+	path2.set_pos (145, 50)
+	path3.set_pos (145,95)
+	redStone.set_pos(190, 95)
+	pathTiles.add(path1, path2, path3)
 	stonePile= [path1, path2]
 	tree1 = Tree()
 	tree2 = Tree()
@@ -351,6 +354,7 @@ def checkCollision():
 			gameSetup()
 			count = 0
 	else:
+		collide = False
 		level += 1
 		
 	
