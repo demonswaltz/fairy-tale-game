@@ -227,33 +227,37 @@ def gameRun():
 					print "up"
 					playerpos[1] -= 45
 					drawRed()
-					checkCollision()
 					if collide == False:
 						break
+					checkCollision()
+					
 				#down
 				elif move == 274:
 					print "down"
 					playerpos[1] += 45
 					drawRed()
-					checkCollision()
 					if collide == False:
 						break
+					checkCollision()
+					
 				#left
 				elif move == 276:
 					print "left"
 					playerpos[0] -= 45
 					drawRed()
-					checkCollision()
 					if collide == False:
 						break
+					checkCollision()
+					
 				#right
 				elif move == 275:
 					print "right"
 					playerpos[0] += 45
 					drawRed()
-					checkCollision()
 					if collide == False:
 						break
+					checkCollision()
+					
 						
 def levelOne():
 	print "levelOne"
@@ -274,15 +278,18 @@ def levelOne():
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
+	path4 = Path()
 	path1.set_image(path)
 	path2.set_image(path)
 	path3.set_image(path)
+	path4.set_image(path)
 	redStone.set_image(redpathimg)
-	path1.set_pos (100, 50)
-	path2.set_pos (145, 50)
-	path3.set_pos (145,95)
+	path1.set_pos(playerpos[0],playerpos[1])
+	path2.set_pos (100, 50)
+	path3.set_pos (145, 50)
+	path4.set_pos (145,95)
 	redStone.set_pos(190, 95)
-	pathTiles.add(path1, path2, path3)
+	pathTiles.add(path1, path2, path3, path4)
 	stonePile= [path1, path2]
 	tree1 = Tree()
 	tree2 = Tree()
@@ -340,7 +347,6 @@ def checkCollision():
 		elif index < 14:
 			spaceBar = False
 			collide = False
-			levelOne()
 			gameSetup()
 			count = 0
 		else:
@@ -350,7 +356,6 @@ def checkCollision():
 			arrowPosy.pop()
 			posy -=50
 			index-= 1
-			levelOne()
 			gameSetup()
 			count = 0
 	else:
@@ -370,22 +375,19 @@ while level == 1:
 			print "ELSE!!"
 			gameRun()
 			count = 0
-			
-else:
-	while level == 2:
-		for x in range(width/grass.get_width()+1):
-			for y in range(height/grass.get_height()+1):
-				puzzleArea.blit(shark,(x*125,y*200))
-		while count < 1:
-			gameSetup()
-			gamePlay()
-		else:
-			while True:
-				gamePlay()
+
+while level == 2: 
+	levelTwo()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
 	else:
-		while level == 3:
-			while count <1:
-				gameSetup()
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0			
+
 			
 for event in pygame.event.get():
 		# check if the event is the X button 
