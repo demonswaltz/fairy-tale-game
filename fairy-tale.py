@@ -114,12 +114,12 @@ def gameSetup():
 		pathTiles.draw(screen)
 		happyTrees.draw(screen)
 		redGroup.draw(screen)
-		screen.blit(text, (200, 550))
+		screen.blit(text1, (50, 550))
+		screen.blit(text2, (50, 575))
 		playerGroup.draw(screen)
 		redGroup.draw(screen)
 		screen.blit(vertline,(710,-55))
 		pygame.display.flip()
-		
 #Basic Input Mechanics accepts keypresses
 def gamePlay():
 	global arrowPosy
@@ -211,7 +211,6 @@ def drawRed():
 	playerGroup.draw(screen)
 	pygame.display.flip()
 	pygame.time.wait(1000)
-	
 #Basic Game
 def gameRun():
 	print "gameRun"
@@ -220,55 +219,89 @@ def gameRun():
 	global puzzleArea
 	global collide
 	collide = True
-	while collide == True:	
-		for move in moves:
-				#up
-				if move == 273:
-					print "up"
-					playerpos[1] -= 45
-					drawRed()
-					if collide == False:
-						break
-					checkCollision()
-					
-				#down
-				elif move == 274:
-					print "down"
-					playerpos[1] += 45
-					drawRed()
-					if collide == False:
-						break
-					checkCollision()
-					
-				#left
-				elif move == 276:
-					print "left"
-					playerpos[0] -= 45
-					drawRed()
-					if collide == False:
-						break
-					checkCollision()
-					
-				#right
-				elif move == 275:
-					print "right"
-					playerpos[0] += 45
-					drawRed()
-					if collide == False:
-						break
-					checkCollision()
-					
-						
+	print collide	
+	for move in moves:
+		#up
+		if move == 273:
+			print "up"
+			playerpos[1] -= 45
+			drawRed()
+			if collide == False:
+				break
+			else:	
+				checkCollision()
+		#down
+		elif move == 274:
+			print "down"
+			playerpos[1] += 45
+			drawRed()
+			if collide == False:
+				break
+			else:
+				checkCollision()
+		#left
+		elif move == 276:
+			print "left"
+			playerpos[0] -= 45
+			drawRed()
+			if collide == False:
+				break
+			else:	
+				checkCollision()
+		#right
+		elif move == 275:
+			print "right"
+			playerpos[0] += 45
+			drawRed()
+			if collide == False:
+				break
+			else:
+				checkCollision()
+			
+#Name says it all... Are they colliding??  Let's check
+def checkCollision():
+	print "checkCollision"
+	global index
+	global moves
+	global moveImg
+	global arrowPosy
+	global posy
+	global spaceBar
+	global level
+	global collide
+	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
+		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0 :
+			print "Woo!"
+		elif index < 14:
+			spaceBar = False
+			collide = False
+			gameSetup()
+			count = 0
+		else:
+			collide = False
+			moves.pop()
+			moveImg.pop()
+			arrowPosy.pop()
+			posy -=50
+			index-= 1
+			gameSetup()
+			count = 0
+	else:
+		collide = False
+		#level += 1
+#The very first level		
 def levelOne():
 	print "levelOne"
 	global playerpos
 	global font
-	global text
+	global text1
+	global text2
 	global count
 	global spaceBar
 	global redpathpos
 	global moves
 	print moves
+	
 	spaceBar = False
 	count = 0
 	playerpos = [55,50]
@@ -285,12 +318,11 @@ def levelOne():
 	path4.set_image(path)
 	redStone.set_image(redpathimg)
 	path1.set_pos(playerpos[0],playerpos[1])
-	path2.set_pos (100, 50)
-	path3.set_pos (145, 50)
-	path4.set_pos (145,95)
-	redStone.set_pos(190, 95)
+	path2.set_pos (55, 95)
+	path3.set_pos (55, 140)
+	redStone.set_pos(55, 185)
 	pathTiles.add(path1, path2, path3, path4)
-	stonePile= [path1, path2]
+	stonePile= [path1, path2, path3, path4]
 	tree1 = Tree()
 	tree2 = Tree()
 	tree3 = Tree()
@@ -327,45 +359,14 @@ def levelOne():
 	lilRed.set_pos (playerpos[0],playerpos[1])
 	playerGroup.draw(screen)
 	redGroup.draw(screen)
-	text = font.render ("Hello World", True, (0,0,0))
-	screen.blit(text, (200, 700))
+	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done", True, (0,0,0))
 	pygame.display.flip()
-
-def checkCollision():
-	print "checkCollision"
-	global index
-	global moves
-	global moveImg
-	global arrowPosy
-	global posy
-	global spaceBar
-	global level
-	global collide
-	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
-		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0 :
-			print "Woo!"
-		elif index < 14:
-			spaceBar = False
-			collide = False
-			gameSetup()
-			count = 0
-		else:
-			collide = False
-			moves.pop()
-			moveImg.pop()
-			arrowPosy.pop()
-			posy -=50
-			index-= 1
-			gameSetup()
-			count = 0
-	else:
-		collide = False
-		level += 1
-		
 	
 	
 while level == 1: 
 	levelOne()
+	gameSetup()
 	print count
 	while count == 0:
 		gamePlay()
@@ -378,6 +379,7 @@ while level == 1:
 
 while level == 2: 
 	levelTwo()
+	gameSetup()
 	print count
 	while count == 0:
 		gamePlay()
