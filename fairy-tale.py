@@ -77,6 +77,7 @@ moves= [];
 moveImg=[];
 count = 0
 spaceBar=False
+collide = True
 posy=16
 lilRedSpot=[];
 lilRed = Player()
@@ -128,7 +129,6 @@ def gamePlay():
 	global spaceBar
 	global playerpos
 	while spaceBar == False and index < 14:
-		print "gamePlay"
 		drawMoves()
 		for event in pygame.event.get():
 			try:
@@ -218,32 +218,42 @@ def gameRun():
 	global moves
 	global playerpos
 	global puzzleArea
-	for move in moves:
-		#up
-		if move == 273:
-			print "up"
-			playerpos[1] -= 45
-			drawRed()
-			checkCollision()
-		#down
-		elif move == 274:
-			print "down"
-			playerpos[1] += 45
-			drawRed()
-			checkCollision()
-		#left
-		elif move == 276:
-			print "left"
-			playerpos[0] -= 45
-			drawRed()
-			checkCollision()
-			
-		#right
-		elif move == 275:
-			print "right"
-			playerpos[0] += 45
-			drawRed()
-			checkCollision()
+	global collide
+	collide = True
+	while collide == True:	
+		for move in moves:
+				#up
+				if move == 273:
+					print "up"
+					playerpos[1] -= 45
+					drawRed()
+					checkCollision()
+					if collide == False:
+						break
+				#down
+				elif move == 274:
+					print "down"
+					playerpos[1] += 45
+					drawRed()
+					checkCollision()
+					if collide == False:
+						break
+				#left
+				elif move == 276:
+					print "left"
+					playerpos[0] -= 45
+					drawRed()
+					checkCollision()
+					if collide == False:
+						break
+				#right
+				elif move == 275:
+					print "right"
+					playerpos[0] += 45
+					drawRed()
+					checkCollision()
+					if collide == False:
+						break
 						
 def levelOne():
 	print "levelOne"
@@ -320,16 +330,18 @@ def checkCollision():
 	global posy
 	global spaceBar
 	global level
-	
+	global collide
 	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
 		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0 :
 			print "Woo!"
 		elif index < 14:
 			spaceBar = False
+			collide = False
 			levelOne()
 			gameSetup()
-			gamePlay()
+			count = 0
 		else:
+			collide = False
 			moves.pop()
 			moveImg.pop()
 			arrowPosy.pop()
@@ -337,10 +349,10 @@ def checkCollision():
 			index-= 1
 			levelOne()
 			gameSetup()
-			drawRed()
-			gamePlay()
+			count = 0
 	else:
 		level += 1
+		
 	
 	
 while level == 1: 
