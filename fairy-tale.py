@@ -95,6 +95,7 @@ path = "resources/images/path.png"
 redpathimg = "resources/images/redpath.png"
 treeimg1 = "resources/images/tree1.png"
 treeimg2 = "resources/images/tree2.png"
+treeimg3 = "resources/images/tree3.png"
 treeimg5 = "resources/images/tree5.png"
 lilImage="resources/images/lilRed.png"
 up = "resources/images/up.png"
@@ -111,6 +112,7 @@ def gameSetup():
 		pygame.display.set_caption("LEVEL "+ lev_str)
 		screen.fill((245,222,179))
 		screen.blit(puzzleArea, (0,0))
+		screen.blit(house, (213, 3))
 		pathTiles.draw(screen)
 		happyTrees.draw(screen)
 		redGroup.draw(screen)
@@ -288,7 +290,7 @@ def checkCollision():
 			count = 0
 	else:
 		collide = False
-		#level += 1
+		level += 1
 #The very first level		
 def levelOne():
 	print "levelOne"
@@ -304,25 +306,23 @@ def levelOne():
 	
 	spaceBar = False
 	count = 0
-	playerpos = [55,50]
+	playerpos = [255,175]
 	for x in range(width/grass.get_width()+1):
 		for y in range(height/grass.get_height()+1):
 			puzzleArea.blit(grass,(x*125,y*200))
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
-	path4 = Path()
 	path1.set_image(path)
 	path2.set_image(path)
 	path3.set_image(path)
-	path4.set_image(path)
 	redStone.set_image(redpathimg)
 	path1.set_pos(playerpos[0],playerpos[1])
-	path2.set_pos (55, 95)
-	path3.set_pos (55, 140)
-	redStone.set_pos(55, 185)
-	pathTiles.add(path1, path2, path3, path4)
-	stonePile= [path1, path2, path3, path4]
+	path2.set_pos (255, 220)
+	path3.set_pos (255, 265)
+	redStone.set_pos(255, 310)
+	pathTiles.add(path1, path2, path3)
+	stonePile= [path1, path2, path3]
 	tree1 = Tree()
 	tree2 = Tree()
 	tree3 = Tree()
@@ -335,23 +335,66 @@ def levelOne():
 	tree10 = Tree()
 	tree11 = Tree()
 	tree12 = Tree()
+	tree13 = Tree()
+	tree14 = Tree()
+	tree15 = Tree()
+	tree16= Tree()
+	tree17= Tree()
+	tree18= Tree()
+	tree19= Tree()
+	tree20= Tree()
+	tree21= Tree()
+	tree22 = Tree()
+	tree23 = Tree()
+	tree24 = Tree()
 	tree1.set_image(treeimg1)
 	tree2.set_image(treeimg1)
 	tree3.set_image(treeimg1)
-	tree4.set_image(treeimg1)
+	tree4.set_image(treeimg3)
 	tree5.set_image(treeimg2)
 	tree6.set_image(treeimg2)
 	tree7.set_image(treeimg2)
-	tree8.set_image(treeimg2)
+	tree8.set_image(treeimg3)
 	tree9.set_image(treeimg5)
 	tree10.set_image(treeimg5)
 	tree11.set_image(treeimg5)
-	tree12.set_image(treeimg5)
+	tree12.set_image(treeimg1)
+	tree13.set_image(treeimg1)
+	tree14.set_image(treeimg3)
+	tree15.set_image(treeimg1)
+	tree16.set_image(treeimg2)
+	tree17.set_image(treeimg2)
+	tree18.set_image(treeimg2)
+	tree19.set_image(treeimg3)
+	tree20.set_image(treeimg5)
+	tree21.set_image(treeimg5)
+	tree22.set_image(treeimg5)
+	tree23.set_image(treeimg5)
+	tree24.set_image(treeimg3)
 	tree1.set_pos(145, 245)
 	tree2.set_pos(600, 234)
 	tree3.set_pos(300, 200)
 	tree4.set_pos(75, 285)
 	tree5.set_pos(450, 350)
+	tree6.set_pos(145, 245)
+	tree7.set_pos(600, 234)
+	tree8.set_pos(300, 200)
+	tree9.set_pos(75, 285)
+	tree10.set_pos(450, 350)
+	tree11.set_pos(145, 245)
+	tree12.set_pos(600, 234)
+	tree13.set_pos(300, 200)
+	tree14.set_pos(75, 285)
+	tree15.set_pos(450, 350)
+	tree16.set_pos(145, 245)
+	tree17.set_pos(600, 234)
+	tree18.set_pos(300, 200)
+	tree19.set_pos(75, 285)
+	tree20.set_pos(450, 350)
+	tree21.set_pos(145, 245)
+	tree22.set_pos(600, 234)
+	tree23.set_pos(300, 200)
+	tree24.set_pos(75, 285)
 	happyTrees.add(tree1, tree2, tree3, tree4, tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12)
 	pathTiles.draw(screen)
 	happyTrees.draw(screen)
