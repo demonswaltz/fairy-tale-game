@@ -32,6 +32,30 @@ stonePile= [path1, path2, path3, path4, path5, path6,path7, path8, path9, path10
 
 #Creat Tree Elements and add to group
 
+treeimg1 = "resources/images/tree1.png"
+treeimg2 = "resources/images/tree2.png"
+treeimg3 = "resources/images/tree3.png"
+treeimg4 = "resources/images/tree5.png"
+treeimg5 = "resources/images/tree1.png"
+treeimg6 = "resources/images/tree2.png"
+treeimg7 = "resources/images/tree3.png"
+treeimg8 = "resources/images/tree5.png"
+treeimg9 = "resources/images/tree1.png"
+treeimg10 = "resources/images/tree2.png"
+treeimg11 = "resources/images/tree3.png"
+treeimg12 = "resources/images/tree5.png"
+treeimg13 = "resources/images/tree1.png"
+treeimg14 = "resources/images/tree2.png"
+treeimg15 = "resources/images/tree3.png"
+treeimg16 = "resources/images/tree5.png"
+treeimg17 = "resources/images/tree1.png"
+treeimg18 = "resources/images/tree2.png"
+treeimg19 = "resources/images/tree3.png"
+treeimg20 = "resources/images/tree5.png"
+treeimg21 = "resources/images/tree1.png"
+treeimg22 = "resources/images/tree2.png"
+treeimg23 = "resources/images/tree3.png"
+treeimg24 = "resources/images/tree5.png"
 tree1 = Tree()
 tree2 = Tree()
 tree3 = Tree()
@@ -47,40 +71,39 @@ tree12 = Tree()
 tree13 = Tree()
 tree14 = Tree()
 tree15 = Tree()
-tree16= Tree()
-tree17= Tree()
-tree18= Tree()
-tree19= Tree()
-tree20= Tree()
-tree21= Tree()
+tree16 = Tree()
+tree17 = Tree()
+tree18 = Tree()
+tree19 = Tree()
+tree20 = Tree()
+tree21 = Tree()
 tree22 = Tree()
 tree23 = Tree()
 tree24 = Tree()
-
 tree1.set_image(treeimg1)
-tree2.set_image(treeimg1)
-tree3.set_image(treeimg1)
-tree4.set_image(treeimg3)
-tree5.set_image(treeimg2)
-tree6.set_image(treeimg2)
-tree7.set_image(treeimg2)
-tree8.set_image(treeimg3)
-tree9.set_image(treeimg5)
-tree10.set_image(treeimg5)
-tree11.set_image(treeimg5)
-tree12.set_image(treeimg1)
-tree13.set_image(treeimg1)
-tree14.set_image(treeimg3)
-tree15.set_image(treeimg1)
-tree16.set_image(treeimg2)
-tree17.set_image(treeimg2)
-tree18.set_image(treeimg2)
-tree19.set_image(treeimg3)
-tree20.set_image(treeimg5)
-tree21.set_image(treeimg5)
-tree22.set_image(treeimg5)
-tree23.set_image(treeimg5)
-tree24.set_image(treeimg3)
+tree2.set_image(treeimg2)
+tree3.set_image(treeimg3)
+tree4.set_image(treeimg4)
+tree5.set_image(treeimg5)
+tree6.set_image(treeimg6)
+tree7.set_image(treeimg7)
+tree8.set_image(treeimg8)
+tree9.set_image(treeimg9)
+tree10.set_image(treeimg10)
+tree11.set_image(treeimg11)
+tree12.set_image(treeimg12)
+tree13.set_image(treeimg13)
+tree14.set_image(treeimg14)
+tree15.set_image(treeimg15)
+tree16.set_image(treeimg16)
+tree17.set_image(treeimg17)
+tree18.set_image(treeimg18)
+tree19.set_image(treeimg19)
+tree20.set_image(treeimg20)
+tree21.set_image(treeimg21)
+tree22.set_image(treeimg22)
+tree23.set_image(treeimg23)
+tree24.set_image(treeimg24)
 
 tree1.set_pos(145, 245)
 tree2.set_pos(600, 234)

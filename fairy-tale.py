@@ -88,15 +88,11 @@ redGroup.add(redStone)
 
 #images
 vertline = pygame.image.load("resources/images/vert-line.png")
-grass = pygame.image.load("resources/images/grass1.png")
+grass = pygame.image.load("resources/images/level1.png")
 shark = pygame.image.load("resources/images/shark_1.png")
-house = pygame.image.load("resources/images/house.png")
+houseimg = "resources/images/house.png"
 path = "resources/images/path.png"
 redpathimg = "resources/images/redpath.png"
-treeimg1 = "resources/images/tree1.png"
-treeimg2 = "resources/images/tree2.png"
-treeimg3 = "resources/images/tree3.png"
-treeimg5 = "resources/images/tree5.png"
 lilImage="resources/images/lilRed.png"
 up = "resources/images/up.png"
 down = "resources/images/down.png"
@@ -112,7 +108,6 @@ def gameSetup():
 		pygame.display.set_caption("LEVEL "+ lev_str)
 		screen.fill((245,222,179))
 		screen.blit(puzzleArea, (0,0))
-		screen.blit(house, (213, 3))
 		pathTiles.draw(screen)
 		happyTrees.draw(screen)
 		redGroup.draw(screen)
@@ -224,41 +219,47 @@ def gameRun():
 	print collide	
 	for move in moves:
 		#up
+		
 		if move == 273:
-			print "up"
-			playerpos[1] -= 45
-			drawRed()
+			checkCollision()
 			if collide == False:
 				break
 			else:	
-				checkCollision()
+				print "up"
+				playerpos[1] -= 45
+				drawRed()
+
 		#down
+		
 		elif move == 274:
-			print "down"
-			playerpos[1] += 45
-			drawRed()
+			checkCollision()
 			if collide == False:
 				break
 			else:
-				checkCollision()
-		#left
+				print "down"
+				playerpos[1] += 45
+				drawRed()
+			
+		#leftheckCollision()
 		elif move == 276:
-			print "left"
-			playerpos[0] -= 45
-			drawRed()
+			checkCollision()
 			if collide == False:
 				break
 			else:	
-				checkCollision()
+				print "left"
+				playerpos[0] -= 45
+				drawRed()
+			
 		#right
 		elif move == 275:
-			print "right"
-			playerpos[0] += 45
-			drawRed()
+			checkCollision()
 			if collide == False:
 				break
 			else:
-				checkCollision()
+				print "right"
+				playerpos[0] += 45
+				drawRed()
+			
 			
 #Name says it all... Are they colliding??  Let's check
 def checkCollision():
@@ -306,104 +307,31 @@ def levelOne():
 	
 	spaceBar = False
 	count = 0
-	playerpos = [255,175]
-	for x in range(width/grass.get_width()+1):
-		for y in range(height/grass.get_height()+1):
-			puzzleArea.blit(grass,(x*125,y*200))
+	playerpos = [255,77]
+	puzzleArea.blit(grass,(0,0))
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
+	house = Path()
 	path1.set_image(path)
 	path2.set_image(path)
 	path3.set_image(path)
+	house.set_image(houseimg)
 	redStone.set_image(redpathimg)
-	path1.set_pos(playerpos[0],playerpos[1])
-	path2.set_pos (255, 220)
-	path3.set_pos (255, 265)
-	redStone.set_pos(255, 310)
-	pathTiles.add(path1, path2, path3)
+	path1.set_pos(255,122)
+	path2.set_pos (255, 167)
+	path3.set_pos (255, 212)
+	redStone.set_pos(255, 257)
+	house.set_pos(213, 3)
+	pathTiles.add(path1, path2, path3,house)
 	stonePile= [path1, path2, path3]
-	tree1 = Tree()
-	tree2 = Tree()
-	tree3 = Tree()
-	tree4 = Tree()
-	tree5 = Tree()
-	tree6 = Tree()
-	tree7 = Tree()
-	tree8 = Tree()
-	tree9 = Tree()
-	tree10 = Tree()
-	tree11 = Tree()
-	tree12 = Tree()
-	tree13 = Tree()
-	tree14 = Tree()
-	tree15 = Tree()
-	tree16= Tree()
-	tree17= Tree()
-	tree18= Tree()
-	tree19= Tree()
-	tree20= Tree()
-	tree21= Tree()
-	tree22 = Tree()
-	tree23 = Tree()
-	tree24 = Tree()
-	tree1.set_image(treeimg1)
-	tree2.set_image(treeimg1)
-	tree3.set_image(treeimg1)
-	tree4.set_image(treeimg3)
-	tree5.set_image(treeimg2)
-	tree6.set_image(treeimg2)
-	tree7.set_image(treeimg2)
-	tree8.set_image(treeimg3)
-	tree9.set_image(treeimg5)
-	tree10.set_image(treeimg5)
-	tree11.set_image(treeimg5)
-	tree12.set_image(treeimg1)
-	tree13.set_image(treeimg1)
-	tree14.set_image(treeimg3)
-	tree15.set_image(treeimg1)
-	tree16.set_image(treeimg2)
-	tree17.set_image(treeimg2)
-	tree18.set_image(treeimg2)
-	tree19.set_image(treeimg3)
-	tree20.set_image(treeimg5)
-	tree21.set_image(treeimg5)
-	tree22.set_image(treeimg5)
-	tree23.set_image(treeimg5)
-	tree24.set_image(treeimg3)
-	tree1.set_pos(145, 245)
-	tree2.set_pos(600, 234)
-	tree3.set_pos(300, 200)
-	tree4.set_pos(75, 285)
-	tree5.set_pos(450, 350)
-	tree6.set_pos(145, 245)
-	tree7.set_pos(600, 234)
-	tree8.set_pos(300, 200)
-	tree9.set_pos(75, 285)
-	tree10.set_pos(450, 350)
-	tree11.set_pos(145, 245)
-	tree12.set_pos(600, 234)
-	tree13.set_pos(300, 200)
-	tree14.set_pos(75, 285)
-	tree15.set_pos(450, 350)
-	tree16.set_pos(145, 245)
-	tree17.set_pos(600, 234)
-	tree18.set_pos(300, 200)
-	tree19.set_pos(75, 285)
-	tree20.set_pos(450, 350)
-	tree21.set_pos(145, 245)
-	tree22.set_pos(600, 234)
-	tree23.set_pos(300, 200)
-	tree24.set_pos(75, 285)
-	happyTrees.add(tree1, tree2, tree3, tree4, tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12)
-	pathTiles.draw(screen)
-	happyTrees.draw(screen)
 	lilRed.set_image(lilImage)
 	lilRed.set_pos (playerpos[0],playerpos[1])
 	playerGroup.draw(screen)
 	redGroup.draw(screen)
 	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
-	text2 = font.render("Press the space bar when you are done", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
+	#text3 = font.render("
 	pygame.display.flip()
 	
 	
