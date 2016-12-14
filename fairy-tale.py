@@ -88,9 +88,10 @@ redGroup.add(redStone)
 
 #images
 vertline = pygame.image.load("resources/images/vert-line.png")
-grass = pygame.image.load("resources/images/level1.png")
-shark = pygame.image.load("resources/images/shark_1.png")
+level1bg = pygame.image.load("resources/images/level1.png")
+#level2bg = pygame.image.load("resources/images/level2.png")
 houseimg = "resources/images/house.png"
+wolfimg = "resources/images/wolf-tree.gif"
 path = "resources/images/path.png"
 redpathimg = "resources/images/redpath.png"
 lilImage="resources/images/lilRed.png"
@@ -109,12 +110,12 @@ def gameSetup():
 		screen.fill((245,222,179))
 		screen.blit(puzzleArea, (0,0))
 		pathTiles.draw(screen)
-		happyTrees.draw(screen)
 		redGroup.draw(screen)
 		screen.blit(text1, (50, 550))
 		screen.blit(text2, (50, 575))
 		playerGroup.draw(screen)
 		redGroup.draw(screen)
+		happyTrees.draw(screen)
 		screen.blit(vertline,(710,-55))
 		pygame.display.flip()
 #Basic Input Mechanics accepts keypresses
@@ -223,42 +224,50 @@ def gameRun():
 		if move == 273:
 			checkCollision()
 			if collide == False:
+				print "No Collision"
 				break
 			else:	
 				print "up"
 				playerpos[1] -= 45
 				drawRed()
+				checkCollision()
 
 		#down
 		
 		elif move == 274:
 			checkCollision()
 			if collide == False:
+				print "No Collision"
 				break
 			else:
 				print "down"
 				playerpos[1] += 45
 				drawRed()
+				checkCollision()
 			
-		#leftheckCollision()
+		#left
 		elif move == 276:
 			checkCollision()
 			if collide == False:
+				print "No Collision"
 				break
 			else:	
 				print "left"
 				playerpos[0] -= 45
 				drawRed()
+				checkCollision()
 			
 		#right
 		elif move == 275:
 			checkCollision()
 			if collide == False:
+				print "No Collision"
 				break
 			else:
 				print "right"
 				playerpos[0] += 45
 				drawRed()
+				checkCollision()
 			
 			
 #Name says it all... Are they colliding??  Let's check
@@ -273,8 +282,8 @@ def checkCollision():
 	global level
 	global collide
 	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
-		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0 :
-			print "Woo!"
+		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
+			print "woo"
 		elif index < 14:
 			spaceBar = False
 			collide = False
@@ -304,11 +313,53 @@ def levelOne():
 	global redpathpos
 	global moves
 	print moves
-	
 	spaceBar = False
 	count = 0
 	playerpos = [255,77]
-	puzzleArea.blit(grass,(0,0))
+	puzzleArea.blit(level1bg,(0,0))
+	path1 = Path()
+	path2 = Path()
+	path3 = Path()
+	house = Path()
+	wolf = Tree()
+	path1.set_image(path)
+	path2.set_image(path)
+	path3.set_image(path)
+	house.set_image(houseimg)
+	redStone.set_image(redpathimg)
+	wolf.set_image(wolfimg)
+	path1.set_pos(255,122)
+	path2.set_pos (255, 167)
+	path3.set_pos (255, 212)
+	redStone.set_pos(255, 257)
+	house.set_pos(213, 3)
+	wolf.set_pos (355, 257)
+	pathTiles.add(path1, path2, path3,house)
+	happyTrees.add(wolf)
+	stonePile= [path1, path2, path3]
+	lilRed.set_image(lilImage)
+	lilRed.set_pos (playerpos[0],playerpos[1])
+	playerGroup.draw(screen)
+	redGroup.draw(screen)
+	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
+	#text3 = font.render("
+	pygame.display.flip()
+#The next level
+def levelTwo():
+	global playerpos
+	global font
+	global text1
+	global text2
+	global count
+	global spaceBar
+	global redpathpos
+	global moves
+	print moves
+	spaceBar = False
+	count = 0
+	playerpos = [300,300]
+	puzzleArea.blit(level2bg,(0,0))
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
@@ -321,19 +372,7 @@ def levelOne():
 	path1.set_pos(255,122)
 	path2.set_pos (255, 167)
 	path3.set_pos (255, 212)
-	redStone.set_pos(255, 257)
-	house.set_pos(213, 3)
-	pathTiles.add(path1, path2, path3,house)
-	stonePile= [path1, path2, path3]
-	lilRed.set_image(lilImage)
-	lilRed.set_pos (playerpos[0],playerpos[1])
-	playerGroup.draw(screen)
-	redGroup.draw(screen)
-	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
-	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
-	#text3 = font.render("
-	pygame.display.flip()
-	
+	redStone.set_pos(255, 257)	
 	
 while level == 1: 
 	levelOne()
