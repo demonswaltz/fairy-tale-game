@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import pyganim
 
 class Path(pygame.sprite.Sprite):
 	def __init__(self, width=45, height=45):
@@ -91,7 +92,6 @@ vertline = pygame.image.load("resources/images/vert-line.png")
 level1bg = pygame.image.load("resources/images/level1.png")
 #level2bg = pygame.image.load("resources/images/level2.png")
 houseimg = "resources/images/house.png"
-wolfimg = "resources/images/wolf-tree.gif"
 path = "resources/images/path.png"
 redpathimg = "resources/images/redpath.png"
 lilImage="resources/images/lilRed.png"
@@ -100,7 +100,13 @@ down = "resources/images/down.png"
 left = "resources/images/left.png"
 right = "resources/images/right.png"
 gameover= pygame.image.load("resources/images/gameover.png")
+wolfss = "resources/images/wolfTree.png"
 
+#wolf animation load
+wolfimg = pyganim.getImagesFromSpriteSheet(wolfss, rows=1, cols=5)
+wolfframes = list(zip(wolfimg, [50, 50, 50, 50, 50]))
+wolfanim = pyganim.PygAnimation(wolfframes)
+wolfanim.play()
 #Game Layout Function Does not (!) draw lilRed
 def gameSetup():
 		global level
@@ -115,7 +121,6 @@ def gameSetup():
 		screen.blit(text2, (50, 575))
 		playerGroup.draw(screen)
 		redGroup.draw(screen)
-		happyTrees.draw(screen)
 		screen.blit(vertline,(710,-55))
 		pygame.display.flip()
 #Basic Input Mechanics accepts keypresses
@@ -181,7 +186,6 @@ def gamePlay():
 	else:
 		global count
 		count += 1
-				
 #Draw Moves Function shows arrows on screen for keypresses
 def drawMoves():
 	global arrowPosy
@@ -268,8 +272,6 @@ def gameRun():
 				playerpos[0] += 45
 				drawRed()
 				checkCollision()
-			
-			
 #Name says it all... Are they colliding??  Let's check
 def checkCollision():
 	print "checkCollision"
@@ -312,30 +314,28 @@ def levelOne():
 	global spaceBar
 	global redpathpos
 	global moves
+	global wolfanim
 	print moves
 	spaceBar = False
 	count = 0
 	playerpos = [255,77]
 	puzzleArea.blit(level1bg,(0,0))
+	wolfanim.blit(puzzleArea, (355, 257))
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
 	house = Path()
-	wolf = Tree()
 	path1.set_image(path)
 	path2.set_image(path)
 	path3.set_image(path)
 	house.set_image(houseimg)
 	redStone.set_image(redpathimg)
-	wolf.set_image(wolfimg)
 	path1.set_pos(255,122)
 	path2.set_pos (255, 167)
 	path3.set_pos (255, 212)
 	redStone.set_pos(255, 257)
 	house.set_pos(213, 3)
-	wolf.set_pos (355, 257)
 	pathTiles.add(path1, path2, path3,house)
-	happyTrees.add(wolf)
 	stonePile= [path1, path2, path3]
 	lilRed.set_image(lilImage)
 	lilRed.set_pos (playerpos[0],playerpos[1])
