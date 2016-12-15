@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-import pyganim
+#import pyganim
 
 class Path(pygame.sprite.Sprite):
 	def __init__(self, width=45, height=45):
@@ -15,7 +15,6 @@ class Path(pygame.sprite.Sprite):
 		if filename != None:
 			self.image = pygame.image.load( filename )
 			self.rect = self.image.get_rect()
-
 class RedPath(pygame.sprite.Sprite):
 	def __init__(self, width=45, height=45):
 		super (RedPath, self).__init__()
@@ -42,7 +41,6 @@ class Player(pygame.sprite.Sprite):
 		if filename != None:
 			self.image = pygame.image.load( filename )
 			self.rect = self.image.get_rect()
-
 class Tree(pygame.sprite.Sprite):
 	def __init__(self, width=64, height=64):
 		super (Tree, self).__init__()
@@ -90,7 +88,7 @@ redGroup.add(redStone)
 #images
 vertline = pygame.image.load("resources/images/vert-line.png")
 level1bg = pygame.image.load("resources/images/level1.png")
-#level2bg = pygame.image.load("resources/images/level2.png")
+level2bg = pygame.image.load("resources/images/level2.png")
 houseimg = "resources/images/house.png"
 path = "resources/images/path.png"
 redpathimg = "resources/images/redpath.png"
@@ -103,10 +101,10 @@ gameover= pygame.image.load("resources/images/gameover.png")
 wolfss = "resources/images/wolfTree.png"
 
 #wolf animation load
-wolfimg = pyganim.getImagesFromSpriteSheet(wolfss, rows=1, cols=5)
-wolfframes = list(zip(wolfimg, [50, 50, 50, 50, 50]))
-wolfanim = pyganim.PygAnimation(wolfframes)
-wolfanim.play()
+#wolfimg = pyganim.getImagesFromSpriteSheet(wolfss, rows=1, cols=5)
+#wolfframes = list(zip(wolfimg, [50, 50, 50, 50, 50]))
+#wolfanim = pyganim.PygAnimation(wolfframes)
+#wolfanim.play()
 #Game Layout Function Does not (!) draw lilRed
 def gameSetup():
 		global level
@@ -283,6 +281,7 @@ def checkCollision():
 	global spaceBar
 	global level
 	global collide
+	print moves
 	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
 		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
 			print "woo"
@@ -302,7 +301,12 @@ def checkCollision():
 			count = 0
 	else:
 		collide = False
+		for tile in pathTiles:
+			pathTiles.remove(tile)
+			moves = []
+			moveImg=[]
 		level += 1
+		
 #The very first level		
 def levelOne():
 	print "levelOne"
@@ -314,13 +318,13 @@ def levelOne():
 	global spaceBar
 	global redpathpos
 	global moves
-	global wolfanim
+	#global wolfanim
 	print moves
 	spaceBar = False
 	count = 0
 	playerpos = [255,77]
 	puzzleArea.blit(level1bg,(0,0))
-	wolfanim.blit(puzzleArea, (355, 257))
+	#wolfanim.blit(puzzleArea, (355, 257))
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
@@ -347,6 +351,7 @@ def levelOne():
 	pygame.display.flip()
 #The next level
 def levelTwo():
+	print "Level Two"
 	global playerpos
 	global font
 	global text1
@@ -358,21 +363,36 @@ def levelTwo():
 	print moves
 	spaceBar = False
 	count = 0
-	playerpos = [300,300]
+	playerpos = [430, 0]
 	puzzleArea.blit(level2bg,(0,0))
 	path1 = Path()
 	path2 = Path()
 	path3 = Path()
-	house = Path()
+	path4 = Path()
+	path5 = Path()
+	path6 = Path()
+	path7 = Path()
 	path1.set_image(path)
 	path2.set_image(path)
 	path3.set_image(path)
-	house.set_image(houseimg)
+	path4.set_image(path)
+	path5.set_image(path)
+	path6.set_image(path)
+	path7.set_image(path)
+	pathTiles.add(path1, path2, path3, path4, path5, path6, path7)
 	redStone.set_image(redpathimg)
-	path1.set_pos(255,122)
-	path2.set_pos (255, 167)
-	path3.set_pos (255, 212)
-	redStone.set_pos(255, 257)	
+	path1.set_pos(430,0)
+	path2.set_pos (430, 45)
+	path3.set_pos (430, 90)
+	path4.set_pos (475, 90)
+	path5.set_pos (520, 90)
+	path6.set_pos (565, 90)
+	path7.set_pos (610, 90)
+	redStone.set_pos(655, 90)
+	lilRed.set_image(lilImage)
+	lilRed.set_pos (playerpos[0],playerpos[1])
+	playerGroup.draw(screen)
+	redGroup.draw(screen)	
 	
 while level == 1: 
 	levelOne()
@@ -400,7 +420,110 @@ while level == 2:
 			gameRun()
 			count = 0			
 
+while level == 3: 
+	levelThree()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0	
+
+while level == 4: 
+	levelFour()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0	
 			
+while level == 5: 
+	levelFive()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0
+
+while level == 6: 
+	levelSix()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0
+			
+while level == 7: 
+	levelSeven()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0
+			
+while level == 8 : 
+	levelEight()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0							
+
+while level == 9: 
+	levelNine()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0	
+
+while level == 10 : 
+	levelTen()
+	gameSetup()
+	print count
+	while count == 0:
+		gamePlay()
+		print count
+	else:
+		while count == 1:
+			print "ELSE!!"
+			gameRun()
+			count = 0	
+
 for event in pygame.event.get():
 		# check if the event is the X button 
 	if event.type==pygame.QUIT:
