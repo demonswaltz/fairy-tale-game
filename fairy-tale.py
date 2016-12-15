@@ -89,6 +89,7 @@ redGroup.add(redStone)
 vertline = pygame.image.load("resources/images/vert-line.png")
 level1bg = pygame.image.load("resources/images/level1.png")
 level2bg = pygame.image.load("resources/images/level2.png")
+level3bg = pygame.image.load("resources/images/level3.png")
 houseimg = "resources/images/house.png"
 path = "resources/images/path.png"
 redpathimg = "resources/images/redpath.png"
@@ -303,10 +304,10 @@ def checkCollision():
 		collide = False
 		for tile in pathTiles:
 			pathTiles.remove(tile)
-			moves = []
-			moveImg=[]
+		moves = []
+		moveImg=[]
+		index = 0
 		level += 1
-		
 #The very first level		
 def levelOne():
 	print "levelOne"
@@ -393,7 +394,72 @@ def levelTwo():
 	lilRed.set_pos (playerpos[0],playerpos[1])
 	playerGroup.draw(screen)
 	redGroup.draw(screen)	
-	
+#Level THREE!!!!
+def levelThree():
+	print "Level Three"
+	global playerpos
+	global font
+	global text1
+	global text2
+	global count
+	global spaceBar
+	global redpathpos
+	global moves
+	print moves
+	spaceBar = False
+	count = 0
+	playerpos = [0,90]
+	puzzleArea.blit(level3bg,(0,0))
+	path1 = Path()
+	path2 = Path()
+	path3 = Path()
+	path4 = Path()
+	path5 = Path()
+	path6 = Path()
+	path7 = Path()
+	path8 = Path()
+	path9 = Path()
+	path11 = Path()
+	path12 = Path()
+	path13 = Path()
+	path14 = Path()
+	path15 = Path()
+	path16 = Path()
+	path17 = Path()
+	path18 = Path()
+	path1.set_image(path)
+	path2.set_image(path)
+	path3.set_image(path)
+	path4.set_image(path)
+	path5.set_image(path)
+	path6.set_image(path)
+	path7.set_image(path)
+	path8.set_image(path)
+	path9.set_image(path)
+	path11.set_image(path)
+	path12.set_image(path)
+	path13.set_image(path)
+	path14.set_image(path)
+	path15.set_image(path)
+	path16.set_image(path)
+	path17.set_image(path)
+	path18.set_image(path)
+	pathTiles.add(path1, path2, path3, path4, path5, path6,path7, path8, path9, path11, path12, path13, path14, path15, path16, path17, path18)
+	redStone.set_image(path)
+	path1.set_pos(0,90)
+	path2.set_pos (45, 90)
+	path3.set_pos (45, 135)
+	path4.set_pos (90, 135)
+	path5.set_pos (135, 135)
+	path6.set_pos (135, 180)
+	path7.set_pos (135, 225)
+	path8.set_pos (180, 225)
+	path9.set_pos (225, 225)
+	redStone.set_pos (270, 225)
+	lilRed.set_image(lilImage)
+	lilRed.set_pos (playerpos[0],playerpos[1])
+	playerGroup.draw(screen)
+	redGroup.draw(screen)		
 while level == 1: 
 	levelOne()
 	gameSetup()
