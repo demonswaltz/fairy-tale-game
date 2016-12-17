@@ -132,3 +132,78 @@ tree24.set_pos(75, 285)
 
 happyTrees.add(tree1, tree2, tree3, tree4, tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12, tree13, tree14, tree15, tree16, tree17, tree18, tree19, tree20, tree21, tree22, tree23, tree24)
 stonePile= [tree1, tree2, tree3, tree4, tree5, tree6, tree7, tree8, tree9, tree10, tree11, tree12]
+
+
+print "Level Four"
+	global playerpos
+	global font
+	global text1
+	global text2
+	global count
+	global spaceBar
+	global moves
+	print playerpos
+	spaceBar = False
+	count = 0
+	puzzleArea.blit(level3bg,(0,0))
+	path1 = Path()
+	path2 = Path()
+	path3 = Path()
+	path4 = Path()
+	path5 = Path()
+	path6 = Path()
+	path7 = Path()
+	path8 = Path()
+	path9 = Path()
+	path10 = Path()
+	path11 = Path()
+	path12 = Path()
+	path13 = Path()
+	path14 = Path()
+	path15 = Path()
+	path16 = Path()
+	path17 = Path()
+	path18 = Path()
+	path1.set_image(path)
+	path2.set_image(path)
+	path3.set_image(path)
+	path4.set_image(path)
+	path5.set_image(path)
+	path6.set_image(path)
+	path7.set_image(path)
+	path8.set_image(path)
+	path9.set_image(path)
+	path10.set_image(path)
+	path11.set_image(path)
+	path12.set_image(path)
+	path13.set_image(path)
+	path14.set_image(path)
+	path15.set_image(path)
+	path16.set_image(path)
+	path17.set_image(path)
+	pathTiles.add(path1, path2, path3, path4, path5, path6,path7, path8, path9, path10, path11, path12, path13, path14, path15, path16, path17, path18)
+	redStone.set_image(redpathimg)
+	path1.set_pos(0,90)
+	path2.set_pos (45, 90)
+	path3.set_pos (45, 135)
+	path4.set_pos (90, 135)
+	path5.set_pos (135, 135)
+	path6.set_pos (135, 180)
+	path7.set_pos (135, 225)
+	path8.set_pos (180, 225)
+	path9.set_pos (225, 225)
+	path10.set_pos (270, 225)
+	path11.set_pos (315, 225)
+	path12.set_pos (360, 225)
+	path13.set_pos (405, 225)
+	path14.set_pos (450, 225)
+	path15.set_pos (495, 225)
+	path16.set_pos (540, 225)
+	path17.set_pos (585, 225)
+	redStone.set_pos (630, 225)
+	lilRed.set_image(lilImage)
+	lilRed.set_pos (playerpos[0],playerpos[1])
+	playerGroup.draw(screen)
+	redGroup.draw(screen)
+	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))	

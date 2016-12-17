@@ -220,7 +220,6 @@ def gameRun():
 	global puzzleArea
 	global collide
 	collide = True
-	print collide	
 	for move in moves:
 		#up
 		
@@ -274,6 +273,7 @@ def gameRun():
 #Name says it all... Are they colliding??  Let's check
 def checkCollision():
 	print "checkCollision"
+	print level
 	global index
 	global moves
 	global moveImg
@@ -282,7 +282,6 @@ def checkCollision():
 	global spaceBar
 	global level
 	global collide
-	print moves
 	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
 		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
 			print "woo"
@@ -301,13 +300,13 @@ def checkCollision():
 			gameSetup()
 			count = 0
 	else:
-		collide = False
 		for tile in pathTiles:
 			pathTiles.remove(tile)
 		moves = []
 		moveImg=[]
 		index = 0
 		level += 1
+		
 #The very first level		
 def levelOne():
 	print "levelOne"
@@ -320,7 +319,6 @@ def levelOne():
 	global redpathpos
 	global moves
 	#global wolfanim
-	print moves
 	spaceBar = False
 	count = 0
 	playerpos = [255,77]
@@ -361,7 +359,6 @@ def levelTwo():
 	global spaceBar
 	global redpathpos
 	global moves
-	print moves
 	spaceBar = False
 	count = 0
 	playerpos = [430, 0]
@@ -393,7 +390,10 @@ def levelTwo():
 	lilRed.set_image(lilImage)
 	lilRed.set_pos (playerpos[0],playerpos[1])
 	playerGroup.draw(screen)
-	redGroup.draw(screen)	
+	redGroup.draw(screen)
+	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
+		
 #Level THREE!!!!
 def levelThree():
 	print "Level Three"
@@ -405,7 +405,6 @@ def levelThree():
 	global spaceBar
 	global redpathpos
 	global moves
-	print moves
 	spaceBar = False
 	count = 0
 	playerpos = [0,90]
@@ -456,137 +455,118 @@ def levelThree():
 	path8.set_pos (180, 225)
 	path9.set_pos (225, 225)
 	redStone.set_pos (270, 225)
+	path11.set_pos (315, 225)
+	path12.set_pos (360, 225)
+	path13.set_pos (405, 225)
+	path14.set_pos (450, 225)
+	path15.set_pos (495, 225)
+	path16.set_pos (540, 225)
+	path17.set_pos (585, 225)
+	path18.set_pos (630, 225)
 	lilRed.set_image(lilImage)
 	lilRed.set_pos (playerpos[0],playerpos[1])
 	playerGroup.draw(screen)
-	redGroup.draw(screen)		
+	redGroup.draw(screen)
+	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
+
 while level == 1: 
 	levelOne()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0
 
 while level == 2: 
 	levelTwo()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0			
 
 while level == 3: 
 	levelThree()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0	
 
 while level == 4: 
 	levelFour()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0	
 			
 while level == 5: 
 	levelFive()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0
 
 while level == 6: 
 	levelSix()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0
 			
 while level == 7: 
 	levelSeven()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0
 			
 while level == 8 : 
 	levelEight()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0							
 
 while level == 9: 
 	levelNine()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0	
 
 while level == 10 : 
 	levelTen()
 	gameSetup()
-	print count
 	while count == 0:
 		gamePlay()
-		print count
 	else:
 		while count == 1:
-			print "ELSE!!"
 			gameRun()
 			count = 0	
 
