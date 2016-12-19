@@ -70,7 +70,7 @@ puzzleArea=pygame.Surface((700, 500))
 instructions= pygame.Surface ((1000, 200))
 keys = [False, False, False, False]
 arrowPosy=[];
-level=4
+level=1
 index = 0
 moves= [];
 moveImg=[];
@@ -310,7 +310,7 @@ def checkCollision():
 		else:
 			for tile in pathTiles:
 				pathTiles.remove(tile)
-			for otherTile in OtherTiles:
+			for otherTile in otherTiles:
 				otherTiles.remove(otherTile)
 			moves = []
 			moveImg=[]
