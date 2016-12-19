@@ -84,6 +84,7 @@ playerGroup.add(lilRed)
 font = pygame.font.SysFont("Ariel", 30)
 redStone = RedPath()
 redGroup.add(redStone)
+levelend = False
 
 #images
 vertline = pygame.image.load("resources/images/vert-line.png")
@@ -219,53 +220,69 @@ def gameRun():
 	global playerpos
 	global puzzleArea
 	global collide
+	global levelend
+	print levelend
 	collide = True
-	for move in moves:
-		#up
-		if move == 273:
-			checkCollision()
-			if collide == False:
-				print "No Collision"
-				break
-			else:	
-				print "up"
-				playerpos[1] -= 45
+	while levelend == False:
+		for move in moves:
+			#up
+			if move == 273:
+				checkRedCol()
+				if levelend == True:
+					break
+				checkCollision()
+				if collide == False:
+					print "No Collision"
+					break
+				else:	
+					print "up"
+					playerpos[1] -= 45
+					drawRed()
+					checkCollision()
+			#down
+			elif move == 274:
+				checkRedCol()
+				if levelend == True:
+					break
+				elif levelend == False:
+					checkCollision()
+					if collide == False:
+						print "No Collision"
+						break
+				else:	
+					print "down"
+					playerpos[1] += 45
+					drawRed()
+					checkCollision()
+					checkCollision()
+			#left
+			elif move == 276:
+				checkCollision()
+				if collide == False:
+					print "No Collision"
+					break
+				else:	
+					print "left"
+					playerpos[0] -= 45
+					drawRed()
+					checkCollision()
+			#right
+			elif move == 275:
+				checkCollision()
+				playerpos[0] += 45
 				drawRed()
 				checkCollision()
-		#down
-		elif move == 274:
-			checkCollision()
-			print "down"
-			playerpos[1] += 45
-			drawRed()
-			checkCollision()
-			checkCollision()
-		#left
-		elif move == 276:
-			checkCollision()
-			if collide == False:
-				print "No Collision"
-				break
-			else:	
-				print "left"
-				playerpos[0] -= 45
-				drawRed()
-				checkCollision()
-		#right
-		elif move == 275:
-			checkCollision()
-			playerpos[0] += 45
-			drawRed()
-			checkCollision()
 #Name says it all... Are they colliding??  Let's check
 def checkRedCol():
 	global level
 	global moves
 	global moveImg
 	global index
-	while pygame.sprite.collide_rect(lilRed, redStone)  == False:
-		gameRun()
+	global levelend
+	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
+		levelend = False
 	else:
+		levelend = True
 		for tile in pathTiles:
 			pathTiles.remove(tile)
 		moves = []
@@ -283,7 +300,15 @@ def checkCollision():
 	global spaceBar
 	global level
 	global collide
+	global levelend
 	print level
+	if levelend == True:
+		for tile in pathTiles:
+			pathTiles.remove(tile)
+		moves = []
+		moveImg=[]
+		index = 0
+		level += 1
 	if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
 		print "woo"
 		if index < 14:
