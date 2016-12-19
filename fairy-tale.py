@@ -84,7 +84,7 @@ playerGroup.add(lilRed)
 font = pygame.font.SysFont("Ariel", 30)
 redStone = RedPath()
 redGroup.add(redStone)
-
+levelEnd = False
 #images
 vertline = pygame.image.load("resources/images/vert-line.png")
 level1bg = pygame.image.load("resources/images/level1.png")
@@ -219,10 +219,11 @@ def gameRun():
 	global playerpos
 	global puzzleArea
 	global collide
+	global levelEnd
 	collide = True
+	levelEnd = False
 	for move in moves:
 		#up
-		
 		if move == 273:
 			checkCollision()
 			if collide == False:
@@ -233,9 +234,7 @@ def gameRun():
 				playerpos[1] -= 45
 				drawRed()
 				checkCollision()
-
 		#down
-		
 		elif move == 274:
 			checkCollision()
 			if collide == False:
@@ -246,7 +245,6 @@ def gameRun():
 				playerpos[1] += 45
 				drawRed()
 				checkCollision()
-			
 		#left
 		elif move == 276:
 			checkCollision()
@@ -258,7 +256,6 @@ def gameRun():
 				playerpos[0] -= 45
 				drawRed()
 				checkCollision()
-			
 		#right
 		elif move == 275:
 			checkCollision()
@@ -273,7 +270,6 @@ def gameRun():
 #Name says it all... Are they colliding??  Let's check
 def checkCollision():
 	print "checkCollision"
-	print level
 	global index
 	global moves
 	global moveImg
@@ -282,30 +278,36 @@ def checkCollision():
 	global spaceBar
 	global level
 	global collide
-	if pygame.sprite.collide_rect(lilRed, redStone)  == False:
-		if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
-			print "woo"
-		elif index < 14:
-			spaceBar = False
-			collide = False
-			gameSetup()
-			count = 0
+	global levelEnd
+	print level
+	if levelEnd == False:
+		if pygame.sprite.collide_rect(lilRed, redStone)  == False:
+				if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
+					print "woo"
+				elif index < 14:
+					spaceBar = False
+					collide = False
+					gameSetup()
+					count = 0
+				else:
+					collide = False
+					moves.pop()
+					moveImg.pop()
+					arrowPosy.pop()
+					posy -=50
+					index-= 1
+					gameSetup()
+					count = 0
 		else:
-			collide = False
-			moves.pop()
-			moveImg.pop()
-			arrowPosy.pop()
-			posy -=50
-			index-= 1
-			gameSetup()
-			count = 0
+			for tile in pathTiles:
+				pathTiles.remove(tile)
+			moves = []
+			moveImg=[]
+			index = 0
+			level += 1
+			levelEnd = True
 	else:
-		for tile in pathTiles:
-			pathTiles.remove(tile)
-		moves = []
-		moveImg=[]
-		index = 0
-		level += 1
+		print "next level"
 		
 #The very first level		
 def levelOne():
@@ -393,7 +395,6 @@ def levelTwo():
 	redGroup.draw(screen)
 	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
 	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
-		
 #Level THREE!!!!
 def levelThree():
 	print "Level Three"
