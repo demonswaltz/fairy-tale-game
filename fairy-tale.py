@@ -60,7 +60,7 @@ pathTiles = pygame.sprite.Group()
 playerGroup = pygame.sprite.Group()
 happyTrees = pygame.sprite.Group()
 redGroup = pygame.sprite.Group()
-	
+otherTiles = pygame.sprite.Group()	
 
 #global variables
 pygame.init()
@@ -70,7 +70,7 @@ puzzleArea=pygame.Surface((700, 500))
 instructions= pygame.Surface ((1000, 200))
 keys = [False, False, False, False]
 arrowPosy=[];
-level=1
+level=4
 index = 0
 moves= [];
 moveImg=[];
@@ -90,8 +90,10 @@ vertline = pygame.image.load("resources/images/vert-line.png")
 level1bg = pygame.image.load("resources/images/level1.png")
 level2bg = pygame.image.load("resources/images/level2.png")
 level3bg = pygame.image.load("resources/images/level3.png")
+level4bg = pygame.image.load("resources/images/level4.png")
 houseimg = "resources/images/house.png"
 path = "resources/images/path.png"
+gpath = "resources/images/greenpath.png"
 redpathimg = "resources/images/redpath.png"
 lilImage="resources/images/lilRed.png"
 up = "resources/images/up.png"
@@ -115,6 +117,7 @@ def gameSetup():
 		screen.fill((245,222,179))
 		screen.blit(puzzleArea, (0,0))
 		pathTiles.draw(screen)
+		otherTiles.draw(screen)
 		redGroup.draw(screen)
 		screen.blit(text1, (50, 550))
 		screen.blit(text2, (50, 575))
@@ -207,11 +210,12 @@ def drawRed():
 	lilRed.set_image(lilImage)
 	lilRed.set_pos (playerpos[0], playerpos[1])
 	pathTiles.draw(screen)
+	otherTiles.draw(screen)
 	happyTrees.draw(screen)
 	redGroup.draw(screen)
 	playerGroup.draw(screen)
 	pygame.display.flip()
-	pygame.time.wait(1000)
+	pygame.time.wait(500)
 #Basic Game
 def gameRun():
 	print "gameRun"
@@ -223,50 +227,53 @@ def gameRun():
 	collide = True
 	levelEnd = False
 	for move in moves:
+		if levelEnd == False:
 		#up
-		if move == 273:
-			checkCollision()
-			if collide == False:
-				print "No Collision"
-				break
-			else:	
-				print "up"
-				playerpos[1] -= 45
-				drawRed()
+			if move == 273:
 				checkCollision()
-		#down
-		elif move == 274:
-			checkCollision()
-			if collide == False:
-				print "No Collision"
-				break
-			else:
-				print "down"
-				playerpos[1] += 45
-				drawRed()
+				if collide == False:
+					print "No Collision"
+					break
+				else:	
+					print "up"
+					playerpos[1] -= 45
+					drawRed()
+					checkCollision()
+			#down
+			elif move == 274:
 				checkCollision()
-		#left
-		elif move == 276:
-			checkCollision()
-			if collide == False:
-				print "No Collision"
-				break
-			else:	
-				print "left"
-				playerpos[0] -= 45
-				drawRed()
+				if collide == False:
+					print "No Collision"
+					break
+				else:
+					print "down"
+					playerpos[1] += 45
+					drawRed()
+					checkCollision()
+			#left
+			elif move == 276:
 				checkCollision()
+				if collide == False:
+					print "No Collision"
+					break
+				else:	
+					print "left"
+					playerpos[0] -= 45
+					drawRed()
+					checkCollision()
 		#right
-		elif move == 275:
-			checkCollision()
-			if collide == False:
-				print "No Collision"
-				break
-			else:
-				print "right"
-				playerpos[0] += 45
-				drawRed()
+			elif move == 275:
 				checkCollision()
+				if collide == False:
+					print "No Collision"
+					break
+				else:
+					print "right"
+					playerpos[0] += 45
+					drawRed()
+					checkCollision()
+	
+			
 #Name says it all... Are they colliding??  Let's check
 def checkCollision():
 	print "checkCollision"
@@ -280,8 +287,10 @@ def checkCollision():
 	global collide
 	global levelEnd
 	print level
+	print moves
 	if levelEnd == False:
 		if pygame.sprite.collide_rect(lilRed, redStone)  == False:
+				print "not done"
 				if len(pygame.sprite.spritecollide(lilRed, pathTiles, False, collided = None)) > 0:
 					print "woo"
 				elif index < 14:
@@ -301,6 +310,8 @@ def checkCollision():
 		else:
 			for tile in pathTiles:
 				pathTiles.remove(tile)
+			for otherTile in OtherTiles:
+				otherTiles.remove(otherTile)
 			moves = []
 			moveImg=[]
 			index = 0
@@ -423,10 +434,6 @@ def levelThree():
 	path12 = Path()
 	path13 = Path()
 	path14 = Path()
-	path15 = Path()
-	path16 = Path()
-	path17 = Path()
-	path18 = Path()
 	path1.set_image(path)
 	path2.set_image(path)
 	path3.set_image(path)
@@ -440,37 +447,113 @@ def levelThree():
 	path12.set_image(path)
 	path13.set_image(path)
 	path14.set_image(path)
-	path15.set_image(path)
-	path16.set_image(path)
-	path17.set_image(path)
-	path18.set_image(path)
-	pathTiles.add(path1, path2, path3, path4, path5, path6,path7, path8, path9, path11, path12, path13, path14, path15, path16, path17, path18)
+	pathTiles.add(path1, path2, path3, path4, path5, path6,path7, path8, path9, path11, path12, path13, path14)
 	redStone.set_image(path)
 	path1.set_pos(0,90)
 	path2.set_pos (45, 90)
-	path3.set_pos (45, 135)
-	path4.set_pos (90, 135)
-	path5.set_pos (135, 135)
-	path6.set_pos (135, 180)
-	path7.set_pos (135, 225)
-	path8.set_pos (180, 225)
-	path9.set_pos (225, 225)
-	redStone.set_pos (270, 225)
-	path11.set_pos (315, 225)
-	path12.set_pos (360, 225)
-	path13.set_pos (405, 225)
-	path14.set_pos (450, 225)
-	path15.set_pos (495, 225)
-	path16.set_pos (540, 225)
-	path17.set_pos (585, 225)
-	path18.set_pos (630, 225)
+	path3.set_pos (90,90)
+	path4.set_pos (135, 90)
+	path5.set_pos (180, 135)
+	path6.set_pos (180,180)
+	path7.set_pos (180,225)
+	path8.set_pos (180, 270)
+	path9.set_pos (180, 315)
+	redStone.set_pos (180, 270)
+	path11.set_pos (180, 360)
+	path12.set_pos (180, 405)
+	path13.set_pos (180, 450)
+	path14.set_pos (135,135)
 	lilRed.set_image(lilImage)
 	lilRed.set_pos (playerpos[0],playerpos[1])
 	playerGroup.draw(screen)
 	redGroup.draw(screen)
 	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
 	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
-
+def levelFour():
+	print "Level Four"
+	global playerpos
+	global font
+	global text1
+	global text2
+	global count
+	global spaceBar
+	global redpathpos
+	global moves
+	spaceBar = False
+	count = 0
+	playerpos = [180, 270]
+	puzzleArea.blit(level4bg,(0,0))
+	path1 = Path()
+	path2 = Path()
+	path3 = Path()
+	path4 = Path()
+	path5 = Path()
+	path6 = Path()
+	path7 = Path()
+	path8 = Path()
+	path9 = Path()
+	path10= Path()
+	path11 = Path()
+	path12 = Path()
+	path13 = Path()
+	path14 = Path()
+	gpath1 = Path()
+	gpath2 = Path()
+	gpath3 = Path()
+	gpath4 = Path()
+	gpath5 = Path()
+	gpath6 = Path()
+	redStone = RedPath()
+	path1.set_image(path)
+	path2.set_image(path)
+	path3.set_image(path)
+	path4.set_image(path)
+	path5.set_image(path)
+	path6.set_image(path)
+	path7.set_image(path)
+	path8.set_image(path)
+	path9.set_image(path)
+	path10.set_image(path)
+	path11.set_image(path)
+	path12.set_image(path)
+	path13.set_image(path)
+	path14.set_image(path)
+	gpath1.set_image(gpath)
+	gpath2.set_image(gpath)
+	gpath3.set_image(gpath)
+	gpath4.set_image(gpath)
+	gpath5.set_image(gpath)
+	gpath6.set_image(gpath)
+	pathTiles.add(path8, gpath1, gpath2, gpath3, gpath4, gpath5, gpath6)
+	otherTiles.add(path1, path2, path3, path4, path5, path6,path7, path8, path9, path10, path11, path12, path13, path14)
+	redStone.set_image(redpathimg)
+	redGroup.add(redStone)
+	path1.set_pos(0,90)
+	path2.set_pos (45, 90)
+	path3.set_pos (90,90)
+	path4.set_pos (135, 90)
+	path5.set_pos (180, 135)
+	path6.set_pos (180,180)
+	path7.set_pos (180,225)
+	path8.set_pos (180, 270)
+	path9.set_pos (180, 270)
+	path10.set_pos (180,315)
+	path11.set_pos (180, 360)
+	path12.set_pos (180, 405)
+	path13.set_pos (180, 450)
+	path14.set_pos (135,135)
+	gpath1.set_pos (225,270)
+	gpath2.set_pos (270, 270)
+	gpath3.set_pos (315, 270)
+	gpath4.set_pos (315, 315)
+	gpath5.set_pos (315, 360)
+	gpath6.set_pos (315,405)
+	redStone.set_pos (315, 450)
+	lilRed.set_image(lilImage)
+	lilRed.set_pos (playerpos[0],playerpos[1])
+	playerGroup.draw(screen)
+	text1 = font.render ("Use the arrow keys to direct Little Red down the path and into the woods.", True, (0,0,0))
+	text2 = font.render("Press the space bar when you are done.", True, (0,0,0))
 while level == 1: 
 	levelOne()
 	gameSetup()
